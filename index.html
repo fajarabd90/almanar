@@ -146,17 +146,21 @@
                 <th>Mata Pelajaran</th>
               </tr>
               <tr>
-                <th>07.45 - 09.15</th>
-                <td><a href="pska-ski.html"><button type="button" class="btn btn-primary" style="padding: 6px 25px;">SKI</button></a> </td>
-              </tr>
-              <tr>
-                <th>09.15 - 09.30</th>
-                <td colspan="6">Istirahat</td>
-              </tr>
-              <tr>
-                <th>09.30 - 11.00</th>
-                <td><a href="pska_arab.html"><button type="button" class="btn btn-primary" style="padding: 6px 25px;">Bahasa Arab</button></a> </td>
-              </tr>
+  <th>07.45 - 09.15</th>
+  <td>
+    <button id="btn-ski" type="button" class="btn btn-secondary" style="padding: 6px 25px;" disabled>SKI</button> 
+  </td>
+</tr>
+<tr>
+  <th>09.15 - 09.30</th>
+  <td colspan="6">Istirahat</td>
+</tr>
+<tr>
+  <th>09.30 - 11.00</th>
+  <td>
+    <button id="btn-arab" type="button" class="btn btn-secondary" style="padding: 6px 25px;" disabled>Bahasa Arab</button> 
+  </td>
+</tr>
             </table>
           </div>
         
@@ -183,5 +187,35 @@
  <p>SDIT Al Manar @2021 Copyright Reserved</p>
 </footer>
 
+  <script>
+function aturTombolUjian() {
+    const sekarang = new Date();
+    const jam = sekarang.getHours();
+    const menit = sekarang.getMinutes();
+    const waktuSekarang = (jam * 100) + menit; // Format HHMM (contoh 07:45 jadi 745)
+
+    // Pengaturan SKI (07:45 - 09:15) -> 745 sampai 915
+    const btnSki = document.getElementById('btn-ski');
+    if (waktuSekarang >= 745 && waktuSekarang <= 915) {
+        btnSki.disabled = false;
+        btnSki.classList.replace('btn-secondary', 'btn-primary');
+        btnSki.onclick = function() { window.location.href = 'pska_ski.html'; };
+    }
+
+    // Pengaturan Bahasa Arab (09:30 - 11:00) -> 930 sampai 1100
+    const btnArab = document.getElementById('btn-arab');
+    if (waktuSekarang >= 930 && waktuSekarang <= 1100) {
+        btnArab.disabled = false;
+        btnArab.classList.replace('btn-secondary', 'btn-primary');
+        btnArab.onclick = function() { window.location.href = 'pska_arab.html'; };
+    }
+}
+
+// Jalankan fungsi saat halaman dimuat
+window.onload = aturTombolUjian;
+
+// Opsional: Cek setiap 30 detik agar tombol otomatis aktif tanpa refresh
+setInterval(aturTombolUjian, 30000);
+</script>
 </body>
 </html>
